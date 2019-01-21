@@ -9,7 +9,7 @@ function handleClientStart() {
 
 function checkAuth() {
   gapi.auth.authorize({
-    client_id: client_id,
+    client_id,
     scope: scopes,
     immediate: true,
   }, handleAuthResult);
@@ -17,7 +17,7 @@ function checkAuth() {
 
 function handleAuthClick() {
   gapi.auth.authorize({
-    client_id: client_id,
+    client_id,
     scope: scopes,
     immediate: false,
   }, handleAuthResult);
@@ -33,9 +33,9 @@ function handleAuthResult(authResult) {
   } else {
     $('#authorize-button').removeClass('hidden');
     $('#authorize-button').on('click', () => {
-            handleAuthClick();
-            $('#text-warnning').text(authResult.error);
-          });
+      handleAuthClick();
+      $('#text-warnning').text(authResult.error);
+    });
   }
 }
 
@@ -44,38 +44,38 @@ function initGmailApi() {
 }
 
 function showInbox() {
-  let request = gapi.client.gmail.users.messages.list({
+  const request = gapi.client.gmail.users.messages.list({
     userId: 'me',
     labelIds: 'INBOX',
     maxResults: 10,
   });
 
   request.execute((response) => {
-          $.each(response.messages, function() {
-            var message_request = gapi.client.gmail.users.messages.get({
-              'userId': 'me',
-              'id': this.id,
-            });
+    $.each(response.messages, function () {
+      const message_request = gapi.client.gmail.users.messages.get({
+        userId: 'me',
+        id: this.id,
+      });
 
-            message_request.execute(appendMessage);
-          });
-        });
+      message_request.execute(appendMessage);
+    });
+  });
 }
 
 function appendMessage(message) {
   $('.table-inbox tbody').append(`<tr>\
             <td>${getHeader(message.payload.headers, 'From')}</td>\
             <td>\
-              <a href="#message-modal-${  message.id
-                }" data-toggle="modal" id="message-link-${  message.id}">${
-                getHeader(message.payload.headers, 'Subject')
-              }</a>\
+              <a href="#message-modal-${message.id
+}" data-toggle="modal" id="message-link-${message.id}">${
+  getHeader(message.payload.headers, 'Subject')
+}</a>\
             </td>\
             <td>${getHeader(message.payload.headers, 'Date')}</td>\
-          </tr>`,);
+          </tr>`);
 
-  $('body').append(`<div class="modal fade" id="message-modal-${  message.id
-              }" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">\
+  $('body').append(`<div class="modal fade" id="message-modal-${message.id
+  }" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">\
             <div class="modal-dialog modal-lg">\
               <div class="modal-content">\
                 <div class="modal-header">\
@@ -85,8 +85,8 @@ function appendMessage(message) {
                           aria-label="Close">\
                     <span aria-hidden="true">&times;</span></button>\
                   <h4 class="modal-title" id="myModalLabel">${
-                    getHeader(message.payload.headers, 'Subject')
-                  }</h4>\
+  getHeader(message.payload.headers, 'Subject')
+}</h4>\
                 </div>\
                 <div class="modal-body">\
                   <iframe id="message-iframe-${message.id}" srcdoc="<p>Loading...</p>">\
@@ -94,12 +94,12 @@ function appendMessage(message) {
                 </div>\
               </div>\
             </div>\
-          </div>`,);
+          </div>`);
 
   $(`#message-link-${message.id}`).on('click', () => {
-          var ifrm = $('#message-iframe-'+message.id)[0].contentWindow.document;
-          $('body', ifrm).html(getBody(message.payload));
-        });
+    const ifrm = $(`#message-iframe-${message.id}`)[0].contentWindow.document;
+    $('body', ifrm).html(getBody(message.payload));
+  });
 }
 
 function getHeader(headers, index) {
