@@ -65,6 +65,7 @@
     "webpack": "^2.4.1"
   },
   "dependencies": {
-    
+    "bootstrap": "^4.2.1",
+    "jquery": "^3.3.1"
   }
 }

@@ -1,0 +1,33 @@
+<!<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    
+    <title>List GMAIL API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="./src/assets/css/styles.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>GMAIL API</h1>
+        <button id="button-authorize" class="btn">Autorizar</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>De</th>
+                    <th>Para</th>
+                    <th>Data/Hora</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+    <script src="./dist/bundle.js"></script>
+</body>
+</html>
